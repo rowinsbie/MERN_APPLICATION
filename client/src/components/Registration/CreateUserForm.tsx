@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
+import {useState } from "react";
 import Axios from "axios";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import { useForm } from "../../helpers/form/useForm";
 import UserList from "../Users/UsersList";
 export default function CreateUserForm() {
 
-    const [usersList,setUsersList] = useState('');
     const [loading,setLoading] = useState(false);
 
   

@@ -1,3 +1,5 @@
+
+
 const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
@@ -7,13 +9,13 @@ app.use(express.json());
 app.use(cors());
 
 // configuration
-const config = require('config');
+const dotenv = require('dotenv').config({path:"../.env"});
 
 // Models
 const UserModel = require('./models/User.Model');
 
 // connect to mongoDB
-mongoose.connect(config.get('database.mongoDBURL'));
+mongoose.connect(process.env.MONGODBURL);
 
 
 // API CALLS
@@ -55,6 +57,6 @@ app.post("/process-login",async(req,res) => {
 });
 
 
-app.listen(3001,()=>{
+app.listen(process.env.EXPRESS_SERVER_PORT,()=>{
     console.log("Server Started");
 })

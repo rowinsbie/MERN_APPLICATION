@@ -8,7 +8,7 @@ export default function UserList()
         axios.get("http://localhost:3001/get-users")
         .then((res) => {
            
-            if(res && res.status == 200)
+            if(res && res.status === 200)
             {
                 setData(res.data);
             }
@@ -24,7 +24,7 @@ export default function UserList()
                 {users.map((user)=>{
                     return (
                         <ul key={user['_id']}>
-                            <li>{user['Name']}</li>
+                            <li>{user['Name']} - <b>({user['Email']})</b></li>
                         </ul>
                     )
                 })}
