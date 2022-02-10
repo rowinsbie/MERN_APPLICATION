@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState,useEffect } from "react";
-
+import DeleteUser from "./DeleteUser";
 export default function UserList()
 {
     const [users,setData] = useState([]);
@@ -24,7 +24,7 @@ export default function UserList()
                 {users.map((user)=>{
                     return (
                         <ul key={user['_id']}>
-                            <li>{user['Name']} - <b>({user['Email']})</b></li>
+                            <li>{user['Name']} - <b>({user['Email']})</b> | <DeleteUser user={user['Name']} userID={user['_id']} /></li>
                         </ul>
                     )
                 })}

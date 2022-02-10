@@ -4,6 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
+const mongo = require('mongodb');
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -44,6 +45,32 @@ app.post("/create-users",async(req,res) => {
     await newUser.save();
 
     res.json(newUser);
+   
+});
+
+app.post("/delete-user",async(req,res) => {
+    const userID = req.body.userID;
+    try
+    {
+        const isExist = await UserModel.find({"_id":userID}).count() >= 1;
+        if(isExist)
+        {
+            await UserModel.deleteOne({"_id":userID});
+            res.json({"message":"User has been deleted"});
+
+        } else {
+            res.json({"message":"User does not exists"});
+        }
+     
+      
+    } catch(e)
+    {
+        res.json({"status":e});
+    }
+
+ 
+   
+    
    
 });
 
