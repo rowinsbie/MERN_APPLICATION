@@ -1,7 +1,11 @@
 import React, { useState } from "react"
 
 
-export const useForm = (callback:any,initialState = {}) => {
+export const useForm = (callback:any,initialState = {
+    Name:"",
+    Email:"",
+    Password:""
+}) => {
     const [values,setValues] = useState(initialState);
 
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {

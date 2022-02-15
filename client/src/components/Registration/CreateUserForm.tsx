@@ -3,7 +3,11 @@ import Axios from "axios";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import { useForm } from "../../helpers/form/useForm";
 import UserList from "../Users/UsersList";
+import { createNewUser } from "../../app/features/UserManagement/UserSlice";
+import { useDispatch } from "react-redux";
+import { User } from "../../app/features/UserManagement/Types";
 export default function CreateUserForm() {
+  const dispatch = useDispatch();
 
     const [loading,setLoading] = useState(false);
 
@@ -16,12 +20,12 @@ export default function CreateUserForm() {
   };
 
   const {onChange,onSubmit,values} = useForm(
-      createNewUser,
+    addUser,
       initialStateInput
   );
 
 
-   async function createNewUser()
+   async function addUser()
   {
      const isCreated = await Axios.post('http://localhost:3001/create-users',values);
      setLoading(true);
@@ -30,6 +34,7 @@ export default function CreateUserForm() {
      {
       setLoading(false);
         console.log("A new user was created");
+        dispatch(createNewUser(values))
      } else {
       setLoading(false);
          console.log("No user was created");
