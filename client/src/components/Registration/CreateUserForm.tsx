@@ -3,9 +3,9 @@ import Axios from "axios";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import { useForm } from "../../helpers/form/useForm";
 import UserList from "../Users/UsersList";
-import { createNewUser } from "../../app/features/UserManagement/UserSlice";
 import { useDispatch } from "react-redux";
-import { User } from "../../app/features/UserManagement/Types";
+import { createUser } from "../../app/features/UserManagement/UserMgmtSlice";
+import UserInterface from "../../app/features/UserManagement/Interfaces/UserInterface";
 export default function CreateUserForm() {
   const dispatch = useDispatch();
 
@@ -14,9 +14,9 @@ export default function CreateUserForm() {
   
 
   const initialStateInput = {
-    Name: "",
-    Email: "",
-    Password: "",
+    Name:"",
+    Email:"",
+    Password:""
   };
 
   const {onChange,onSubmit,values} = useForm(
@@ -33,9 +33,8 @@ export default function CreateUserForm() {
      if(isCreated)
      {
       setLoading(false);
-        console.log("A new user was created");
-        dispatch(createNewUser(values))
-     } else {
+        dispatch(createUser({data:values}))
+    } else {
       setLoading(false);
          console.log("No user was created");
      }
