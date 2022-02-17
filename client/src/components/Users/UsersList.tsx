@@ -11,6 +11,7 @@ export default function UserList()
     const usersData = useSelector((state:RootState)=> state.User);
     // const [users,setData] = useState([]);
     useEffect(() => {
+        
         axios.get("http://localhost:3001/get-users")
         .then((res) => {
            
@@ -28,6 +29,8 @@ export default function UserList()
     },[usersData.length]); // get the  current length and when it changed we refresh the user list
     return (<>
             <h1>Users List</h1>
+            <hr />
+            {(usersData.length <= 0) ? <h3>No User found</h3> :""}
                 {usersData.map((user:any)=>{
                     return (
                         <ul key={Math.random()}>

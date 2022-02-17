@@ -1,19 +1,22 @@
 import axios from "axios";
 import React, {useState} from "react"
 import { Button,Modal } from "react-bootstrap"
+import { useDispatch } from "react-redux";
+import { DELETE_USER } from "../../app/features/UserManagement/UserMgmtSlice";
 export default function DeleteUser(props:any)
 {
+    const dispatch = useDispatch();
     const [open,setOpen] = useState(false);
     const openTrigger = () => setOpen(true);
     const closeTrigger = () => setOpen(false);
-    async function deleteUser()
+     function deleteUser()
     {
         try
         {
-          await axios.post(`http://localhost:3001/delete-user`,{
+          axios.post(`http://localhost:3001/delete-user`,{
             userID:props.userID
         })
-       alert("User has been deleted");
+        dispatch(DELETE_USER(props.userID));
         closeTrigger();
         } catch(e)
         {
