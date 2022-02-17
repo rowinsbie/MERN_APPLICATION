@@ -5,7 +5,7 @@ import { useForm } from "../../helpers/form/useForm";
 import UserList from "../Users/UsersList";
 import { useDispatch } from "react-redux";
 import { CREATE_USER } from "../../app/features/UserManagement/UserMgmtSlice";
-import UserInterface from "../../app/features/UserManagement/Interfaces/UserInterface";
+import {FaUserCircle} from 'react-icons/fa';
 export default function CreateUserForm() {
   const dispatch = useDispatch();
 
@@ -43,8 +43,8 @@ export default function CreateUserForm() {
         <Row>
           <Col lg={{ span: 4 }} className="mt-4">
             <Card>
-              <Card.Header>
-                <h3>Create Account</h3>
+              <Card.Header className="form-header">
+                <h3><FaUserCircle /> Create Account</h3>
               </Card.Header>
               <Card.Body>
                 <Form onSubmit={onSubmit}>
@@ -65,13 +65,13 @@ export default function CreateUserForm() {
                   </Form.Group>
                   <Form.Group className="mt-4 text-end">
                     {loading ? "Processing....." : ""}
-                    <Button type="submit"  className="btn btn-dark">Create account</Button>
+                    <Button type="submit"  className="btn btn-success">Create account</Button>
                   </Form.Group>
                 </Form>
               </Card.Body>
             </Card>
           </Col>
-          <Col lg={{ span: 4 }} className="mt-4">
+          <Col lg={{ span: 8 }} className="mt-4">
             <UserList />
             </Col>
         </Row>

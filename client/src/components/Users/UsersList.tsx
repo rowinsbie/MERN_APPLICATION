@@ -5,6 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { GET_USERS } from "../../app/features/UserManagement/UserMgmtSlice";
 import { RootState } from "../../app/store";
 import DeleteUser from "./DeleteUser";
+import { FaUsers } from 'react-icons/fa';
+import { Card } from "react-bootstrap";
+import NoDataImg from '../../images/no-data.png';
+import { Image } from "react-bootstrap";
 export default function UserList()
 {
     const dispatch = useDispatch();
@@ -28,15 +32,45 @@ export default function UserList()
 
     },[usersData.length]); // get the  current length and when it changed we refresh the user list
     return (<>
-            <h1>Users List</h1>
-            <hr />
-            {(usersData.length <= 0) ? <h3>No User found</h3> :""}
-                {usersData.map((user:any)=>{
+            <Card>
+                <Card.Header  className="form-header">
+                <h4><FaUsers /> Users List</h4>
+                </Card.Header>
+                <Card.Body>
+               
+         
+            <table className="table table-condensed ">
+            <thead>
+                <tr>
+                    
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>/</th>
+                   
+                </tr>
+                </thead>
+                <tbody>
+                {(usersData.length <= 0) ? <tr><td colSpan={3}><div className="text-center mt-3">
+                        <Image src={NoDataImg} width={350} fluid={true} />
+                        <h4>NO USER ACCOUNTS</h4>
+                        <p>To add users, you need to fill in the  <b>Create Account</b> form.</p>
+                    </div></td></tr> :usersData.map((user:any)=>{
                     return (
-                        <ul key={Math.random()}>
-                            <li>{user['Name']} - <b>({user['Email']})</b> | <DeleteUser user={user['Name']} userID={user['_id']} /></li>
-                        </ul>
+                        <tr key={Math.random()}>
+                            <td>{user['Name']}</td>
+                            <td>{user['Email']} </td>
+                            <td> <DeleteUser user={user['Name']} userID={user['_id']} /></td>
+
+                        </tr>
                     )
                 })}
+              
+                </tbody>
+                
+            </table>
+            
+                </Card.Body>
+            </Card>
+           
     </>)
 }
