@@ -1,26 +1,26 @@
 import { createSlice,PayloadAction } from "@reduxjs/toolkit";
 
-import UserInterface from "./Interfaces/UserInterface";
+import UserInfo from "./Interfaces/UserInterface";
 
-const initialState: UserInterface = {
-   data:[]
-} 
+const initialState:UserInfo[] = [
+]
 
 
 export const UserMgmtSlice = createSlice({
-    name:"UserManagement",
+    name:"User",
     initialState,
     reducers:{
-        createUser:(state,action:PayloadAction<UserInterface>) => {
-            state.data.push(action.payload);
+        CREATE_USER:(state,action) => {
+            state.push(action.payload);
         },
-        getUsers:(state,action:PayloadAction<UserInterface>) => {
-            state.data =  action.payload;
+        GET_USERS:(state,action) => {
+            state = action.payload;
+            return state;
         }
     }
 });
 
 
-export const {createUser,getUsers} = UserMgmtSlice.actions;
+export const {CREATE_USER,GET_USERS} = UserMgmtSlice.actions;
 
 export default UserMgmtSlice.reducer;

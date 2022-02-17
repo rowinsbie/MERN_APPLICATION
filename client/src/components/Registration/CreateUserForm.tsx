@@ -4,7 +4,7 @@ import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import { useForm } from "../../helpers/form/useForm";
 import UserList from "../Users/UsersList";
 import { useDispatch } from "react-redux";
-import { createUser } from "../../app/features/UserManagement/UserMgmtSlice";
+import { CREATE_USER } from "../../app/features/UserManagement/UserMgmtSlice";
 import UserInterface from "../../app/features/UserManagement/Interfaces/UserInterface";
 export default function CreateUserForm() {
   const dispatch = useDispatch();
@@ -13,11 +13,7 @@ export default function CreateUserForm() {
 
   
 
-  const initialStateInput = {
-    Name:"",
-    Email:"",
-    Password:""
-  };
+  const initialStateInput:any = []
 
   const {onChange,onSubmit,values} = useForm(
     addUser,
@@ -33,7 +29,7 @@ export default function CreateUserForm() {
      if(isCreated)
      {
       setLoading(false);
-        dispatch(createUser({data:values}))
+        dispatch(CREATE_USER(values));
     } else {
       setLoading(false);
          console.log("No user was created");

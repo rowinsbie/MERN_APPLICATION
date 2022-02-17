@@ -1,4 +1,8 @@
-export default interface UserInterface
+
+export default interface UserInfo  
 {
-    data:any
+    [key:string]:string | number | boolean;
+
+    refreshKey:number;
+
 }

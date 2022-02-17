@@ -3,7 +3,7 @@ import UserMgmtReducer from './features/UserManagement/UserMgmtSlice';
 
 export const store = configureStore({
     reducer:{
-        UserMgmt:UserMgmtReducer
+        User:UserMgmtReducer
     }
 });
 
