@@ -5,7 +5,6 @@ import UserInfo from "./Interfaces/UserInterface";
 const initialState:UserInfo[] = [
 ]
 
-
 export const UserMgmtSlice = createSlice({
     name:"User",
     initialState,

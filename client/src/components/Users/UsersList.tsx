@@ -17,17 +17,15 @@ export default function UserList()
             if(res && res.status === 200)
             {
                 dispatch(GET_USERS(res.data));
-                // setData(res.data);
             }
             
         }).catch((err) => {
            
             console.log(err);
         })
-        console.log(usersData);
+    
 
-    },[]);
-
+    },[usersData.length]); // get the  current length and when it changed we refresh the user list
     return (<>
             <h1>Users List</h1>
                 {usersData.map((user:any)=>{
