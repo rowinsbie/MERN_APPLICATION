@@ -4,6 +4,7 @@ import { Button,Modal } from "react-bootstrap"
 import { useDispatch } from "react-redux";
 import { DELETE_USER } from "../../app/features/UserManagement/UserMgmtSlice";
 import { FaTrashAlt,FaCheckCircle } from 'react-icons/fa';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function DeleteUser(props:any)
 {
@@ -11,22 +12,31 @@ export default function DeleteUser(props:any)
     const [open,setOpen] = useState(false);
     const openTrigger = () => setOpen(true);
     const closeTrigger = () => setOpen(false);
-     function deleteUser()
+     async function deleteAPI()
     {
-        try
-        {
-          axios.post(`http://localhost:3001/delete-user`,{
+       
+        const isDeleted =   await axios.post(`http://localhost:3001/delete-user`,{
             userID:props.userID
         })
-        dispatch(DELETE_USER(props.userID));
-        closeTrigger();
-        } catch(e)
+        if(isDeleted)
         {
-          console.log(e);
+          dispatch(DELETE_USER(props.userID));
         }
+       
+        closeTrigger();
        
        
     }
+
+    const deleteUser = async() =>  toast.promise(
+      deleteAPI(),
+      {
+        loading:"Deleting the account, Please wait....",
+        success:"Account has been deleted",
+        error:"An error occured"
+      }
+      
+    );
 
     return (
         <>
