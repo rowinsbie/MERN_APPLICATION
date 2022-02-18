@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { GET_USERS } from "../../app/features/UserManagement/UserMgmtSlice";
 import { RootState } from "../../app/store";
 import DeleteUser from "./DeleteUser";
+import UpdateUser from "./UpdateUser";
+
 import { FaUsers } from 'react-icons/fa';
 import { Card } from "react-bootstrap";
 import NoDataImg from '../../images/no-data.png';
@@ -59,7 +61,9 @@ export default function UserList()
                         <tr key={Math.random()}>
                             <td>{user['Name']}</td>
                             <td>{user['Email']} </td>
-                            <td> <DeleteUser user={user['Name']} userID={user['_id']} /></td>
+                            <td>
+                                <UpdateUser user={user} /> 
+                                <DeleteUser user={user['Name']} userID={user['_id']} /></td>
 
                         </tr>
                     )
