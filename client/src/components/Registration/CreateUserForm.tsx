@@ -6,6 +6,9 @@ import UserList from "../Users/UsersList";
 import { useDispatch } from "react-redux";
 import { CREATE_USER } from "../../app/features/UserManagement/UserMgmtSlice";
 import {FaUserCircle} from 'react-icons/fa';
+
+import toast, { Toaster } from 'react-hot-toast';
+
 export default function CreateUserForm() {
   const dispatch = useDispatch();
 
@@ -15,8 +18,19 @@ export default function CreateUserForm() {
 
   const initialStateInput:any = []
 
+  
+  const createUser = () => toast.promise(
+    addUser(),
+    {
+      loading:"Creating account, Please wait....",
+      success:"Account has been created",
+      error:"An error occured"
+    }
+    
+  );
+
   const {onChange,onSubmit,values} = useForm(
-    addUser,
+    createUser,
       initialStateInput
   );
 
@@ -28,6 +42,7 @@ export default function CreateUserForm() {
 
      if(isCreated)
      {
+    
       setLoading(false);
         dispatch(CREATE_USER(values));
     } else {
@@ -73,6 +88,8 @@ export default function CreateUserForm() {
           </Col>
           <Col lg={{ span: 8 }} className="mt-4">
             <UserList />
+            <Toaster position="top-right" />
+
             </Col>
         </Row>
       </Container>
