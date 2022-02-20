@@ -67,11 +67,26 @@ app.post("/delete-user",async(req,res) => {
     {
         res.json({"status":e});
     }
+});
 
- 
-   
+
+app.post("/update-user",async(req,res) => {
+    
+    const newUpdate = req.body.update;
     
    
+        if(Object.keys(newUpdate).length >= 1)
+        {
+            let user_id = req.body.update._id;
+
+           
+         await UserModel.findByIdAndUpdate({_id:user_id},{
+                $set:newUpdate
+            });
+            res.json({"status":"UPDATED"});
+        } else {
+            res.json({"status":"NO_UPDATE"});
+        }
 });
 
 app.post("/process-login",async(req,res) => {

@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { DELETE_USER } from "../../app/features/UserManagement/UserMgmtSlice";
+import { UPDATE_USER } from "../../app/features/UserManagement/UserMgmtSlice";
 import { FaEdit, FaCheckCircle } from "react-icons/fa";
 import toast, { Toaster } from "react-hot-toast";
 import { useForm } from "../../helpers/form/useForm";
@@ -12,10 +12,10 @@ export default function UpdateUser(props: any) {
   const openTrigger = () => setOpen(true);
   const closeTrigger = () => setOpen(false);
   const initialState: any = [
-   
+    
   ];
 
-  const deleteUser = () =>
+  const deleteUser = async() =>
     toast.promise(updateAPI(), {
       loading: "Updating, Please wait....",
       success: "Account has been updated",
@@ -25,14 +25,14 @@ export default function UpdateUser(props: any) {
   const { onChange, onSubmit, values } = useForm(deleteUser, initialState);
 
   async function updateAPI() {
-    console.log(values);
-    // const isUpdated =   await axios.post(`http://localhost:3001/delete-user`,{
-    //     userID:props.userID
-    // })
-    // if(isUpdated)
-    // {
-    //   dispatch(DELETE_USER(props.userID));
-    // }
+    Object.assign(values,{_id:props.user._id})
+    const isUpdated =   await axios.post(`http://localhost:3001/update-user`,{
+        update:values
+    })
+    if(isUpdated)
+    {
+      dispatch(UPDATE_USER(values));
+    }
 
     closeTrigger();
   }
@@ -51,6 +51,7 @@ export default function UpdateUser(props: any) {
           <Form onSubmit={onSubmit}>
             <Form.Group>
               <Form.Label>Name</Form.Label>
+              <Form.Control type="hidden"   onInput={onChange} id="_id" name="_id" defaultValue={props.user._id} />
               <Form.Control
                 id="Name" name="Name"
                 onChange={onChange}
